@@ -14,6 +14,7 @@ using System.Web.Http;
 namespace ClientRequest.Controllers
 {
     [RoutePrefix("api/Module")]
+    //[Authorize]
     public class ModuleController : BaseController
     {        
         IModuleService lModule;
@@ -26,32 +27,82 @@ namespace ClientRequest.Controllers
         [HttpGet]
         public OperationResult Get()
         {
-            OperationResult result = new OperationResult();            
-            var classResults = lModule.Get();
-            result.Data = classResults;
-            result.Status = OperationStatus.SUCCESS;
+            OperationResult result = new OperationResult();
+            try
+            {
+                result.Data = lModule.Get();
+                result.Status = OperationStatus.SUCCESS;                
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
             return result;
         }
 
+        [HttpGet]
+        public OperationResult GetById(int id)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                result.Data = lModule.GetById(id);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
 
-        [HttpPost]
-        //[Authorize]
+        [HttpPost]        
         public OperationResult Post(Module module)
         {            
             OperationResult result = new OperationResult();
-            module.CreatedBy = module.UpdatedBy = LoggedInUserId;
-            lModule.Save(module);
-            result.Status = OperationStatus.SUCCESS;
+            try
+            {
+                module.CreatedBy = module.UpdatedBy = LoggedInUserId;
+                lModule.Save(module);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
             return result;
         }
 
         [HttpDelete]
-        //[Authorize]
         public OperationResult Delete(int id)
         {
-            OperationResult result = new OperationResult();            
-            lModule.Delete(id);
-            result.Status = OperationStatus.SUCCESS;
+            OperationResult result = new OperationResult();           
+            
+            try
+            {
+                lModule.Delete(id);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+        [HttpGet]
+        public OperationResult IsNumberExists(string number)
+        {
+            OperationResult result = new OperationResult();           
+            try
+            {
+                result.Data = lModule.IsNumberExists(number);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
             return result;
         }
     }

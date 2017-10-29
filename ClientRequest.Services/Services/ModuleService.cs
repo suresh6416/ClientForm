@@ -18,6 +18,11 @@ namespace ClientRequest.Services.Services
             return _webcontext.Modules.ToList(); 
         }
 
+        public Module GetById(int id)
+        {
+            return _webcontext.Modules.Where(m => m.ID == id).FirstOrDefault();            
+        }
+
         public void Save(Module data)
         {            
             if (data.ID == 0)
@@ -44,6 +49,12 @@ namespace ClientRequest.Services.Services
             var module = _webcontext.Modules.Where(m => m.ID == id).FirstOrDefault();
             _webcontext.Modules.Remove(module);
             _webcontext.SaveChanges();
+        }
+
+        public bool IsNumberExists(string number)
+        {
+            var module = _webcontext.Modules.Where(m => m.Number == number).FirstOrDefault();
+            return module != null ? true : false;
         }
     }
 }

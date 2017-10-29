@@ -18,7 +18,7 @@ namespace ClientRequest.App_Start
 
             var container = new UnityContainer();
             // Register controller
-            container.RegisterType<AccountController>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ModuleController>();
 
             // Register interface

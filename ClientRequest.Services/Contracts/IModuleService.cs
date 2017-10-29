@@ -10,7 +10,9 @@ namespace ClientRequest.Services.Contracts
     public interface IModuleService
     {
         List<Module> Get();
+        Module GetById(int id);
         void Save(Module module);
         void Delete(int id);
+        bool IsNumberExists(string number);
     }
 }
