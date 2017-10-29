@@ -8,7 +8,7 @@ ClientRequestApp.controller('appController', ['$rootScope', '$scope', function (
 
 ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
    
-    $urlRouterProvider.otherwise("/welcome/home");
+    $urlRouterProvider.otherwise("/welcome/login");
     var WEB_APP_NAME = "ClientRequestApp";
    
     $stateProvider
@@ -16,7 +16,22 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
             url: '/welcome',
             templateUrl: 'app/views/layout/layout.html'
         })
-        .state('welcome.home', {
+        .state('welcome.login', {
+            url: '/home',
+            templateUrl: 'app/views/login.html',
+            data: { pageTitle: 'Login' },
+            controller: "loginController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/loginController.js'
+                        ]
+                    });
+                }]
+            }
+        }).state('welcome.home', {
             url: '/home',
             templateUrl: 'app/views/home.html',
             data: { pageTitle: 'Home' },

@@ -14,7 +14,6 @@ using System.Web.Http;
 namespace ClientRequest.Controllers
 {
     [RoutePrefix("api/Module")]
-    //[Authorize]
     public class ModuleController : BaseController
     {        
         IModuleService lModule;
@@ -24,6 +23,7 @@ namespace ClientRequest.Controllers
             lModule = _lModule;
         }
 
+        [Authorize]
         [HttpGet]
         public OperationResult Get()
         {
