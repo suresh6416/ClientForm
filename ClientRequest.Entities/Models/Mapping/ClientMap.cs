@@ -36,7 +36,6 @@ namespace ClientRequest.Entities.Models.Mapping
             this.ToTable("Clients");
             this.Property(t => t.ID).HasColumnName("ID");
             this.Property(t => t.Number).HasColumnName("Number");
-            this.Property(t => t.ModuleID).HasColumnName("ModuleID");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Address).HasColumnName("Address");
             this.Property(t => t.Phone).HasColumnName("Phone");
@@ -46,12 +45,6 @@ namespace ClientRequest.Entities.Models.Mapping
             this.Property(t => t.CreatedBy).HasColumnName("CreatedBy");
             this.Property(t => t.UpdatedOn).HasColumnName("UpdatedOn");
             this.Property(t => t.UpdatedBy).HasColumnName("UpdatedBy");
-
-            // Relationships
-            this.HasOptional(t => t.Module)
-                .WithMany(t => t.Clients)
-                .HasForeignKey(d => d.ModuleID);
-
         }
     }
 }

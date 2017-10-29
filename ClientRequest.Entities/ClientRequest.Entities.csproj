@@ -50,10 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserClaim.cs" />
+    <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientModule.cs" />
     <Compile Include="Models\ClientRequestContext.cs" />
     <Compile Include="Models\JobNature.cs" />
+    <Compile Include="Models\Mapping\AspNetRoleMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserClaimMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserLoginMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserMap.cs" />
     <Compile Include="Models\Mapping\ClientMap.cs" />
+    <Compile Include="Models\Mapping\ClientModuleMap.cs" />
     <Compile Include="Models\Mapping\JobNatureMap.cs" />
     <Compile Include="Models\Mapping\ModuleMap.cs" />
     <Compile Include="Models\Mapping\ProductMap.cs" />
