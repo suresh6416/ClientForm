@@ -1,12 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="OperationResult.cs" company="SkoolBell">
-//   Copyright (c) 2017 SkoolBell. All rights reserved.
-// </copyright>
-// <author>hsarraf</author>
-// <createdOn>2017-1-19 5:26 PM</createdOn>
-// <summary></summary>
-//-----------------------------------------------------------------------
-namespace ClientRequest.Models.Models
+﻿namespace ClientRequest.Models.Models
 {
     /// <summary>
     /// Operation Result - Primarily used to send information back via JSON response.

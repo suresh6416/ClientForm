@@ -1,12 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="OperationStatus.cs" company="SkoolBell">
-//   Copyright (c) 2017 SkoolBell. All rights reserved.
-// </copyright>
-// <author>hsarraf</author>
-// <createdOn>2017-1-19 6:13 PM</createdOn>
-// <summary></summary>
-//-----------------------------------------------------------------------
-namespace ClientRequest.Models.Models
+﻿namespace ClientRequest.Models.Models
 {
     /// <summary>
     /// Operation Status

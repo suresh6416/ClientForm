@@ -2,15 +2,15 @@
 
 ClientRequestApp.controller('appController', ['$rootScope', '$scope', function ($rootScope, $scope) {
     $scope.$on('$viewContentLoaded', function () {
-       
+
     });
 }]);
 
 ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
-   
+
     $urlRouterProvider.otherwise("/welcome/home");
     var WEB_APP_NAME = "ClientRequestApp";
-   
+
     $stateProvider
         .state('welcome', {
             url: '/welcome',
@@ -31,5 +31,26 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
                     });
                 }]
             }
+        })
+        .state('welcome.module', {
+            url: '/module',
+            templateUrl: 'app/views/module.html',
+            data: { pageTitle: 'Modules' },
+            controller: "moduleController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/moduleController.js'
+                        ]
+                    });
+                }]
+            }
         });
 }]);
+
+/*Setup Client Request Constants*/
+ClientRequestApp.constant('clientRequestConstants', {
+    apiServiceBaseUri: 'http://clientrequest-api/'
+});

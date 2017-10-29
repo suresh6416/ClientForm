@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Unity.AspNet.WebApi;
 using ClientRequest.App_Start;
+using System.Web.Http.Cors;
 
 namespace ClientRequest
 {
@@ -18,6 +19,9 @@ namespace ClientRequest
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            var cors = new EnableCorsAttribute("*","*","*");
+            config.EnableCors(cors);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
