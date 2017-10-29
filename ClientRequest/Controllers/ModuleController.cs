@@ -3,6 +3,7 @@ using ClientRequest.Models.Models;
 using ClientRequest.Services.Contracts;
 using ClientRequest.Services.Services;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ using System.Web.Http;
 
 namespace ClientRequest.Controllers
 {
-    [RoutePrefix("api/Module")]
+    [RoutePrefix("api/Module")]    
+    //[Authorize]
     public class ModuleController : BaseController
     {        
         IModuleService lModule;
@@ -26,8 +28,7 @@ namespace ClientRequest.Controllers
         /// <summary>
         /// Get Mudules
         /// </summary>
-        /// <returns></returns>
-        [Authorize]
+        /// <returns></returns>        
         [HttpGet]
         public OperationResult Get()
         {

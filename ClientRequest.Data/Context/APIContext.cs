@@ -12,13 +12,13 @@ namespace ClientRequest.Data.Context
     public class APIContext : DbContext
     {
         static APIContext()
-        {
+        {            
             Database.SetInitializer<APIContext>(null);
         }
 
         public APIContext() : base("DefaultConnection")
         {
-
+            Configuration.ProxyCreationEnabled = false;
         }
         
         public DbSet<AspNetRole> AspNetRoles { get; set; }

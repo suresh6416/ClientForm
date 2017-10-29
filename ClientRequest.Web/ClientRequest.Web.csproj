@@ -97,10 +97,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\controller\loginController.js" />
+    <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\controller\moduleController.js" />
     <Content Include="app\services\moduleService.js" />
     <Content Include="app\views\module.html" />
+    <Content Include="images\logo\user.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

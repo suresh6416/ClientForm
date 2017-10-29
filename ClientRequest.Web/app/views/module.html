@@ -1,1 +1,24 @@
-﻿<h3>Thsi is module page</h3>
+﻿<div class="col-lg-12">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Modules</div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> Number </th>
+                        <th> Name </th>
+                        <th> Description </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mod in Modules">
+                        <td> {{mod.Number}} </td>
+                        <td> {{mod.Name}} </td>
+                        <td> {{mod.Description}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

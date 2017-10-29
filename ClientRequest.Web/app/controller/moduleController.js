@@ -5,7 +5,7 @@
 
     $scope.getModules = function () {
         moduleService.getModules().then(function (response) {
-            $scope.Modules = response;
+            $scope.Modules = response.Data;
         }, function (err) {
             console.log(err);
         });
