@@ -22,7 +22,7 @@ namespace ClientRequest.App_Start
             container.RegisterType<ModuleController>();
 
             // Register interface
-            container.RegisterType<IProductDetails, ProductDetails>();
+            container.RegisterType<IModuleService, ModuleService>();
 
             //This is done in Startup instead.
             //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

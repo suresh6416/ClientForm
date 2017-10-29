@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace ClientRequest.Services.Contracts
 {
-    public interface IProductDetails
+    public interface IModuleService
     {
-        bool SaveProducts(Product pob);
-        List<Product> showDetails();
-        bool DeleteDetails(int id);
+        List<Module> Get();
+        Module GetById(int id);
+        void Save(Module module);
+        void Delete(int id);
+        bool IsNumberExists(string number);
     }
 }

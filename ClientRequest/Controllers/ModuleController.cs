@@ -1,6 +1,8 @@
 ﻿using ClientRequest.Entities.Models;
+using ClientRequest.Models.Models;
 using ClientRequest.Services.Contracts;
 using ClientRequest.Services.Services;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,99 +13,98 @@ using System.Web.Http;
 
 namespace ClientRequest.Controllers
 {
+    [RoutePrefix("api/Module")]
+    //[Authorize]
     public class ModuleController : BaseController
     {        
-        IProductDetails iprod;
-
+        IModuleService lModule;
         
-        public ModuleController(IProductDetails _iprod)
+        public ModuleController(IModuleService _lModule)
         {
-            iprod = _iprod;
+            lModule = _lModule;
         }
 
-        [HttpPost]
-        [Route("addProduct")]
-        //[Authorize]
-        public async Task<HttpResponseMessage> saveProductDetails(Product pod)
-        {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            bool res = false;
-            string errordetails = "";
-            var errors = new List<string>();
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    res = iprod.SaveProducts(pod);
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
-
-            }
-            else
-            {
-
-
-                foreach (var state in ModelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        string p = error.ErrorMessage;
-                        errordetails = errordetails + error.ErrorMessage;
-
-                    }
-                }
-
-                dict.Add("error", errordetails);
-                return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-
-            }
-
-            if (res == true)
-            {
-                var showmessage = "Product Saved Successfully.";
-
-                dict.Add("Message", showmessage);
-                return Request.CreateResponse(HttpStatusCode.OK, dict);
-
-            }
-            else
-            {
-                var showmessage = "Product Not Saved Please try again.";
-
-                dict.Add("Message", showmessage);
-                return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-
-            }
-        }
-
-        [Route("showproduct")]
         [HttpGet]
-
-        public async Task<HttpResponseMessage> getAllProduct()
+        public OperationResult Get()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            var details = iprod.showDetails();
-            if (details != null)
+            OperationResult result = new OperationResult();
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, details);
-
+                result.Data = lModule.Get();
+                result.Status = OperationStatus.SUCCESS;                
             }
-            else
+            catch (Exception ex)
             {
-                var showmessage = "No product found.";
-
-                dict.Add("Message", showmessage);
-                return Request.CreateResponse(HttpStatusCode.OK, details);
-
+                result.ErrorMessage = ex.Message;
             }
+            return result;
         }
 
+        [HttpGet]
+        public OperationResult GetById(int id)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                result.Data = lModule.GetById(id);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
 
+        [HttpPost]        
+        public OperationResult Post(Module module)
+        {            
+            OperationResult result = new OperationResult();
+            try
+            {
+                module.CreatedBy = module.UpdatedBy = LoggedInUserId;
+                lModule.Save(module);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+        [HttpDelete]
+        public OperationResult Delete(int id)
+        {
+            OperationResult result = new OperationResult();           
+            
+            try
+            {
+                lModule.Delete(id);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+        [HttpGet]
+        public OperationResult IsNumberExists(string number)
+        {
+            OperationResult result = new OperationResult();           
+            try
+            {
+                result.Data = lModule.IsNumberExists(number);
+                result.Status = OperationStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
     }
 }
 
