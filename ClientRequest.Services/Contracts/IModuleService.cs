@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ClientRequest.Services.Contracts
 {
-    public interface IProductDetails
+    public interface IModuleService
     {
-        bool SaveProducts(Product pob);
-        List<Product> showDetails();
-        bool DeleteDetails(int id);
+        List<Module> Get();
+        void Save(Module module);
+        void Delete(int id);
     }
 }

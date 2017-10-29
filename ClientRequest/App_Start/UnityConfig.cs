@@ -18,11 +18,11 @@ namespace ClientRequest.App_Start
 
             var container = new UnityContainer();
             // Register controller
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<AccountController>();
             container.RegisterType<ModuleController>();
 
             // Register interface
-            container.RegisterType<IProductDetails, ProductDetails>();
+            container.RegisterType<IModuleService, ModuleService>();
 
             //This is done in Startup instead.
             //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

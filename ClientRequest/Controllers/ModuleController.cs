@@ -1,6 +1,8 @@
 ﻿using ClientRequest.Entities.Models;
+using ClientRequest.Models.Models;
 using ClientRequest.Services.Contracts;
 using ClientRequest.Services.Services;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,99 +13,47 @@ using System.Web.Http;
 
 namespace ClientRequest.Controllers
 {
+    [RoutePrefix("api/Module")]
     public class ModuleController : BaseController
     {        
-        IProductDetails iprod;
-
+        IModuleService lModule;
         
-        public ModuleController(IProductDetails _iprod)
+        public ModuleController(IModuleService _lModule)
         {
-            iprod = _iprod;
+            lModule = _lModule;
         }
+
+        [HttpGet]
+        public OperationResult Get()
+        {
+            OperationResult result = new OperationResult();            
+            var classResults = lModule.Get();
+            result.Data = classResults;
+            result.Status = OperationStatus.SUCCESS;
+            return result;
+        }
+
 
         [HttpPost]
-        [Route("addProduct")]
         //[Authorize]
-        public async Task<HttpResponseMessage> saveProductDetails(Product pod)
-        {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            bool res = false;
-            string errordetails = "";
-            var errors = new List<string>();
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    res = iprod.SaveProducts(pod);
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
-
-            }
-            else
-            {
-
-
-                foreach (var state in ModelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        string p = error.ErrorMessage;
-                        errordetails = errordetails + error.ErrorMessage;
-
-                    }
-                }
-
-                dict.Add("error", errordetails);
-                return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-
-            }
-
-            if (res == true)
-            {
-                var showmessage = "Product Saved Successfully.";
-
-                dict.Add("Message", showmessage);
-                return Request.CreateResponse(HttpStatusCode.OK, dict);
-
-            }
-            else
-            {
-                var showmessage = "Product Not Saved Please try again.";
-
-                dict.Add("Message", showmessage);
-                return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-
-            }
+        public OperationResult Post(Module module)
+        {            
+            OperationResult result = new OperationResult();
+            module.CreatedBy = module.UpdatedBy = LoggedInUserId;
+            lModule.Save(module);
+            result.Status = OperationStatus.SUCCESS;
+            return result;
         }
 
-        [Route("showproduct")]
-        [HttpGet]
-
-        public async Task<HttpResponseMessage> getAllProduct()
+        [HttpDelete]
+        //[Authorize]
+        public OperationResult Delete(int id)
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            var details = iprod.showDetails();
-            if (details != null)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, details);
-
-            }
-            else
-            {
-                var showmessage = "No product found.";
-
-                dict.Add("Message", showmessage);
-                return Request.CreateResponse(HttpStatusCode.OK, details);
-
-            }
+            OperationResult result = new OperationResult();            
+            lModule.Delete(id);
+            result.Status = OperationStatus.SUCCESS;
+            return result;
         }
-
-
     }
 }
 
