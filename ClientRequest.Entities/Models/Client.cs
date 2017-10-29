@@ -7,12 +7,12 @@ namespace ClientRequest.Entities.Models
     {
         public Client()
         {
+            this.ClientModules = new List<ClientModule>();
             this.Requests = new List<Request>();
         }
 
         public int ID { get; set; }
         public string Number { get; set; }
-        public Nullable<int> ModuleID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
@@ -22,7 +22,7 @@ namespace ClientRequest.Entities.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
-        public virtual Module Module { get; set; }
+        public virtual ICollection<ClientModule> ClientModules { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
     }
 }

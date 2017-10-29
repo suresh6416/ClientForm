@@ -1,41 +1,37 @@
 ﻿using ClientRequest.Entities.Models;
 using ClientRequest.Models.Models;
 using ClientRequest.Services.Contracts;
-using ClientRequest.Services.Services;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace ClientRequest.Controllers
 {
-    [RoutePrefix("api/Module")]
-    public class ModuleController : BaseController
-    {        
-        IModuleService lModule;
-        
-        public ModuleController(IModuleService _lModule)
+    [RoutePrefix("api/Client")]
+    //[Authorize]
+    public class ClientController : BaseController
+    {
+        IClientService lClient;
+        public ClientController(IClientService _lClient)
         {
-            lModule = _lModule;
+            lClient = _lClient;
         }
 
         /// <summary>
-        /// Get Mudules
+        /// Get Clients
         /// </summary>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
         public OperationResult Get()
         {
             OperationResult result = new OperationResult();
             try
             {
-                result.Data = lModule.Get();
-                result.Status = OperationStatus.SUCCESS;                
+                result.Data = lClient.Get();
+                result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
             {
@@ -45,9 +41,9 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Get Module By Id
+        /// Get Client By Id
         /// </summary>
-        /// <param name="id">Module Id</param>
+        /// <param name="id">Client Id</param>
         /// <returns></returns>
         [HttpGet]
         public OperationResult GetById(int id)
@@ -55,7 +51,7 @@ namespace ClientRequest.Controllers
             OperationResult result = new OperationResult();
             try
             {
-                result.Data = lModule.GetById(id);
+                result.Data = lClient.GetById(id);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -66,18 +62,18 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Add Module
+        /// Add Client
         /// </summary>
-        /// <param name="module">model</param>
+        /// <param name="jobNature">model</param>
         /// <returns></returns>
-        [HttpPost]        
-        public OperationResult Post(Module module)
-        {            
+        [HttpPost]
+        public OperationResult Post(Client client)
+        {
             OperationResult result = new OperationResult();
             try
             {
-                module.CreatedBy = module.UpdatedBy = LoggedInUserName;
-                lModule.Save(module);
+                client.CreatedBy = client.UpdatedBy = LoggedInUserName;
+                lClient.Save(client);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -88,18 +84,18 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Delete Module
+        /// Delete Client
         /// </summary>
-        /// <param name="id">Module Id</param>
+        /// <param name="id">Client Id</param>
         /// <returns></returns>
         [HttpDelete]
         public OperationResult Delete(int id)
         {
-            OperationResult result = new OperationResult();           
-            
+            OperationResult result = new OperationResult();
+
             try
             {
-                lModule.Delete(id);
+                lClient.Delete(id);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -110,17 +106,17 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Check whether module existed or not
+        /// Check whether client existed or not
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
         [HttpGet]
         public OperationResult IsNumberExists(string number)
         {
-            OperationResult result = new OperationResult();           
+            OperationResult result = new OperationResult();
             try
             {
-                result.Data = lModule.IsNumberExists(number);
+                result.Data = lClient.IsNumberExists(number);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -131,4 +127,3 @@ namespace ClientRequest.Controllers
         }
     }
 }
-

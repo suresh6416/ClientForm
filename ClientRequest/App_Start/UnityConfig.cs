@@ -20,9 +20,15 @@ namespace ClientRequest.App_Start
             // Register controller
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ModuleController>();
+            container.RegisterType<JobNatureController>();
+            container.RegisterType<ClientController>();
+            container.RegisterType<RequestController>();
 
             // Register interface
             container.RegisterType<IModuleService, ModuleService>();
+            container.RegisterType<IJobNatureService, JobNatureService>();
+            container.RegisterType<IClientService, ClientService>();
+            container.RegisterType<IRequestService, RequestService>();
 
             //This is done in Startup instead.
             //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

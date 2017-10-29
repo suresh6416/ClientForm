@@ -16,10 +16,14 @@ namespace ClientRequest.Entities.Models
         {
         }
 
+        public DbSet<AspNetRole> AspNetRoles { get; set; }
+        public DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public DbSet<AspNetUser> AspNetUsers { get; set; }
+        public DbSet<ClientModule> ClientModules { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<JobNature> JobNatures { get; set; }
         public DbSet<Module> Modules { get; set; }
-        public DbSet<Product> Products { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<RequestStatu> RequestStatus { get; set; }
         public DbSet<StatusLookup> StatusLookups { get; set; }
@@ -27,10 +31,14 @@ namespace ClientRequest.Entities.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AspNetRoleMap());
+            modelBuilder.Configurations.Add(new AspNetUserClaimMap());
+            modelBuilder.Configurations.Add(new AspNetUserLoginMap());
+            modelBuilder.Configurations.Add(new AspNetUserMap());
+            modelBuilder.Configurations.Add(new ClientModuleMap());
             modelBuilder.Configurations.Add(new ClientMap());
             modelBuilder.Configurations.Add(new JobNatureMap());
             modelBuilder.Configurations.Add(new ModuleMap());
-            modelBuilder.Configurations.Add(new ProductMap());
             modelBuilder.Configurations.Add(new RequestMap());
             modelBuilder.Configurations.Add(new RequestStatuMap());
             modelBuilder.Configurations.Add(new StatusLookupMap());

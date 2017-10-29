@@ -7,7 +7,7 @@ namespace ClientRequest.Entities.Models
     {
         public Module()
         {
-            this.Clients = new List<Client>();
+            this.ClientModules = new List<ClientModule>();
             this.Requests = new List<Request>();
         }
 
@@ -20,7 +20,7 @@ namespace ClientRequest.Entities.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
-        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<ClientModule> ClientModules { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
     }
 }

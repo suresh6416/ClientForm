@@ -1,41 +1,38 @@
 ﻿using ClientRequest.Entities.Models;
 using ClientRequest.Models.Models;
 using ClientRequest.Services.Contracts;
-using ClientRequest.Services.Services;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace ClientRequest.Controllers
 {
-    [RoutePrefix("api/Module")]
-    public class ModuleController : BaseController
-    {        
-        IModuleService lModule;
-        
-        public ModuleController(IModuleService _lModule)
+    [RoutePrefix("api/JobNature")]
+    //[Authorize]
+    public class JobNatureController : BaseController
+    {
+        IJobNatureService lJobNature;
+
+        public JobNatureController(IJobNatureService _lJobNature)
         {
-            lModule = _lModule;
+            lJobNature = _lJobNature;
         }
 
         /// <summary>
-        /// Get Mudules
+        /// Get Job Natures
         /// </summary>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
         public OperationResult Get()
         {
             OperationResult result = new OperationResult();
             try
             {
-                result.Data = lModule.Get();
-                result.Status = OperationStatus.SUCCESS;                
+                result.Data = lJobNature.Get();
+                result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
             {
@@ -45,9 +42,9 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Get Module By Id
+        /// Get Job Nature By Id
         /// </summary>
-        /// <param name="id">Module Id</param>
+        /// <param name="id">Job Nature Id</param>
         /// <returns></returns>
         [HttpGet]
         public OperationResult GetById(int id)
@@ -55,7 +52,7 @@ namespace ClientRequest.Controllers
             OperationResult result = new OperationResult();
             try
             {
-                result.Data = lModule.GetById(id);
+                result.Data = lJobNature.GetById(id);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -66,18 +63,18 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Add Module
+        /// Add Job Nature
         /// </summary>
-        /// <param name="module">model</param>
+        /// <param name="jobNature">model</param>
         /// <returns></returns>
-        [HttpPost]        
-        public OperationResult Post(Module module)
-        {            
+        [HttpPost]
+        public OperationResult Post(JobNature jobNature)
+        {
             OperationResult result = new OperationResult();
             try
             {
-                module.CreatedBy = module.UpdatedBy = LoggedInUserName;
-                lModule.Save(module);
+                jobNature.CreatedBy = jobNature.UpdatedBy = LoggedInUserName;
+                lJobNature.Save(jobNature);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -88,18 +85,18 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Delete Module
+        /// Delete Job Nature
         /// </summary>
-        /// <param name="id">Module Id</param>
+        /// <param name="id">Job Nature Id</param>
         /// <returns></returns>
         [HttpDelete]
         public OperationResult Delete(int id)
         {
-            OperationResult result = new OperationResult();           
-            
+            OperationResult result = new OperationResult();
+
             try
             {
-                lModule.Delete(id);
+                lJobNature.Delete(id);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -110,17 +107,17 @@ namespace ClientRequest.Controllers
         }
 
         /// <summary>
-        /// Check whether module existed or not
+        /// Check whether job nature existed or not
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
         [HttpGet]
         public OperationResult IsNumberExists(string number)
         {
-            OperationResult result = new OperationResult();           
+            OperationResult result = new OperationResult();
             try
             {
-                result.Data = lModule.IsNumberExists(number);
+                result.Data = lJobNature.IsNumberExists(number);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -131,4 +128,3 @@ namespace ClientRequest.Controllers
         }
     }
 }
-
