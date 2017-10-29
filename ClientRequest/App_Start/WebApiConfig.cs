@@ -26,14 +26,8 @@ namespace ClientRequest
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
-            var container = UnityConfig.GetConfiguredContainer(); // Or any other way to fetch your container.
-            config.DependencyResolver = new UnityDependencyResolver(container);
+            //var container = UnityConfig.GetConfiguredContainer(); // Or any other way to fetch your container.
+            //config.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 }

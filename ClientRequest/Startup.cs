@@ -19,16 +19,23 @@ namespace ClientRequest
 
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
+            WebApiConfig.Register(config);
+
+
+            app.UseWebApi(config);
             config.DependencyResolver = new UnityDependencyResolver(
                 UnityConfig.GetConfiguredContainer());
 
             config.Routes.MapHttpRoute(
-                          name: "DefaultApi",
+                         name: "DefaultApi",
+                         routeTemplate: "api/{controller}/{id}",
+                         defaults: new { id = RouteParameter.Optional }
+                     );
+            config.Routes.MapHttpRoute(
+                          name: "DefaultApiWithParameter",
                           routeTemplate: "api/{controller}/{action}/{id}",
                           defaults: new { id = RouteParameter.Optional }
                       );
-
-            app.UseWebApi(config);
         }
     }
 }
