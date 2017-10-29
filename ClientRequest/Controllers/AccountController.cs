@@ -16,6 +16,8 @@ using Microsoft.Owin.Security.OAuth;
 using ClientRequest.Models;
 using ClientRequest.Providers;
 using ClientRequest.Results;
+using ClientRequest.SecurityModels;
+using System.Security.Principal;
 
 namespace ClientRequest.Controllers
 {
@@ -25,15 +27,17 @@ namespace ClientRequest.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
+        private ApplicationSignInManager _signInManager;
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
+            SignInManager = signInManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
@@ -46,6 +50,18 @@ namespace ClientRequest.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? Request.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -72,6 +88,25 @@ namespace ClientRequest.Controllers
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
+        }
+
+        // POST api/Account/Login
+        [Route("Login")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ClaimsIdentity> Login(LoginBindingModel model)
+        {
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            if (SignInStatus.Success.Equals(result))
+            {
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                var claims = await UserManager.GetClaimsAsync(user.Id);
+
+                return new ClaimsIdentity(new GenericIdentity(model.Email, "Token"), claims);
+            }
+
+            // Credentials are invalid, or account doesn't exist
+            return null;
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true

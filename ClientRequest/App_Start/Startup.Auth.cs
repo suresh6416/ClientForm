@@ -10,6 +10,9 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using ClientRequest.Providers;
 using ClientRequest.Models;
+using ClientRequest.SecurityModels;
+using ClientRequest.Data.Context;
+using System.Data.Entity;
 
 namespace ClientRequest
 {
@@ -25,6 +28,8 @@ namespace ClientRequest
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            //app.CreatePerOwinContext(IdentityDbContext.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
