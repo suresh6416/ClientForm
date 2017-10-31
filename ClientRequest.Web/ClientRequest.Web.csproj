@@ -102,6 +102,9 @@
     <Content Include="app\controller\moduleController.js" />
     <Content Include="app\services\moduleService.js" />
     <Content Include="app\views\module.html" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\logo\user.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -112,6 +115,11 @@
     <Content Include="scripts\angular-route.min.js.map" />
     <Content Include="scripts\angular-sanitize.min.js.map" />
     <Content Include="scripts\jquery-1.9.1.min.map" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

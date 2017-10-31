@@ -14,21 +14,21 @@ namespace ClientRequest.Services.Services
         APIContext _webcontext = new APIContext();
 
         public List<Module> Get()
-        {           
-            return _webcontext.Modules.ToList(); 
+        {
+            return _webcontext.Modules.Where(m =>  m.IsActive == true).ToList();
         }
 
         public Module GetById(int id)
         {
-            return _webcontext.Modules.Where(m => m.ID == id).FirstOrDefault();            
+            return _webcontext.Modules.Where(m => m.ID == id && m.IsActive == true).FirstOrDefault();
         }
 
-        public void Save(Module data)
-        {            
-            if (data.ID == 0)
+        public void Save(Module data, string loggedInUserName)
+        {
+            if (data.ID == 0 && !IsNumberExists(data.Number))
             {
                 data.IsActive = true;
-                data.CreatedBy = data.CreatedBy;
+                data.CreatedBy = loggedInUserName;
                 data.CreatedOn = DateTime.Now;
                 _webcontext.Modules.Add(data);
             }
@@ -37,17 +37,18 @@ namespace ClientRequest.Services.Services
                 var module = _webcontext.Modules.Where(m => m.ID == data.ID).FirstOrDefault();
                 module.Name = data.Name;
                 module.Description = data.Description;
-                module.UpdatedBy = data.UpdatedBy;
-                module.UpdatedOn = DateTime.Now; 
+                module.UpdatedBy = loggedInUserName;
+                module.UpdatedOn = DateTime.Now;
             }
 
             _webcontext.SaveChanges();
+
         }
 
         public void Delete(int id)
         {
             var module = _webcontext.Modules.Where(m => m.ID == id).FirstOrDefault();
-            _webcontext.Modules.Remove(module);
+            module.IsActive = false;
             _webcontext.SaveChanges();
         }
 

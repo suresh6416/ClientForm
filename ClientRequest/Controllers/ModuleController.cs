@@ -77,8 +77,7 @@ namespace ClientRequest.Controllers
             OperationResult result = new OperationResult();
             try
             {
-                module.CreatedBy = module.UpdatedBy = LoggedInUserName;
-                lModule.Save(module);
+                lModule.Save(module, LoggedInUserName);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -115,7 +114,7 @@ namespace ClientRequest.Controllers
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public OperationResult IsNumberExists(string number)
         {
             OperationResult result = new OperationResult();           

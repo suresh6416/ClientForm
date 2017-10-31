@@ -40,7 +40,8 @@ namespace ClientRequest.Controllers
                     return User.Identity.GetUserName();
                 }
 
-                return null;
+                //TODO: Need to remove this static email
+                return "suresh@gmail.com";
             }
         }
     }
