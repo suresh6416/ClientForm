@@ -21,7 +21,39 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
             url: '/dashboard',
             templateUrl: 'app/views/dashboard.html',
             data: { pageTitle: 'Dashboard' }           
-        })        
+        })
+        .state('welcome.requests', {
+            url: '/requests',
+            templateUrl: 'app/views/requests.html',
+            data: { pageTitle: 'Requests' },
+            controller: "requestController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/requestController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+        .state('welcome.clients', {
+            url: '/clients',
+            templateUrl: 'app/views/clients.html',
+            data: { pageTitle: 'Clients' },
+            controller: "clientController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/clientController.js'
+                        ]
+                    });
+                }]
+            }
+        })
         .state('welcome.module', {
             url: '/module',
             templateUrl: 'app/views/module.html',
@@ -49,22 +81,6 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
                         name: WEB_APP_NAME,
                         files: [
                             'app/controller/jobNatureController.js'
-                        ]
-                    });
-                }]
-            }
-        })
-        .state('welcome.requests', {
-            url: '/requests',
-            templateUrl: 'app/views/requests.html',
-            data: { pageTitle: 'Requests' },
-            controller: "requestController",
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: WEB_APP_NAME,
-                        files: [
-                            'app/controller/requestController.js'
                         ]
                     });
                 }]

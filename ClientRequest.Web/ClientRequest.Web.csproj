@@ -96,11 +96,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\controller\clientController.js" />
     <Content Include="app\controller\jobNatureController.js" />
     <Content Include="app\controller\loginController.js" />
     <Content Include="app\controller\requestController.js" />
+    <Content Include="app\services\clientService.js" />
+    <Content Include="app\services\dataLookupService.js" />
     <Content Include="app\services\jobNatureService.js" />
     <Content Include="app\services\requestService.js" />
+    <Content Include="app\views\clients.html" />
     <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\jobNature.html" />
     <Content Include="app\views\login.html" />

@@ -15,21 +15,21 @@ namespace ClientRequest.Services.Services
 
         public List<Request> Get()
         {
-            List<Request> requests = _webcontext.Requests.ToList();
+            List<Request> requests = _webcontext.Requests.Where(m => m.IsActive == true).ToList();
             return requests;
         }
 
         public Request GetById(int id)
         {
-            return _webcontext.Requests.Where(m => m.ID == id).FirstOrDefault();
+            return _webcontext.Requests.Where(m => m.ID == id && m.IsActive == true).FirstOrDefault();
         }
 
-        public void Save(Request data)
+        public void Save(Request data, string loggedInUserName)
         {
-            if (data.ID == 0)
+            if (data.ID == 0 && !IsNumberExists(data.Number))
             {
                 data.IsActive = true;
-                data.CreatedBy = data.CreatedBy;
+                data.CreatedBy = loggedInUserName;
                 data.CreatedOn = DateTime.Now;
                 _webcontext.Requests.Add(data);
             }
@@ -46,7 +46,7 @@ namespace ClientRequest.Services.Services
                 request.RequestedOn = data.RequestedOn;
                 request.AssignedTo = data.AssignedTo;
                 request.CRW = data.CRW;
-                request.UpdatedBy = data.UpdatedBy;
+                request.UpdatedBy = loggedInUserName;
                 request.UpdatedOn = DateTime.Now;
             }
             _webcontext.SaveChanges();
@@ -61,7 +61,7 @@ namespace ClientRequest.Services.Services
 
         public bool IsNumberExists(string number)
         {
-            var request = _webcontext.Requests.Where(m => m.Number == number).FirstOrDefault();
+            var request = _webcontext.Requests.Where(m => m.Number == number && m.IsActive == true).FirstOrDefault();
             return request != null ? true : false;
         }
     }

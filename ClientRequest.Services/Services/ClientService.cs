@@ -16,23 +16,23 @@ namespace ClientRequest.Services.Services
 
         public List<Client> Get()
         {
-            List<Client> clients = _webcontext.Clients.ToList();
+            List<Client> clients = _webcontext.Clients.Where(m => m.IsActive == true).ToList();
             return clients;
         }
 
         public Client GetById(int id)
         {
-            return _webcontext.Clients.Where(m => m.ID == id).FirstOrDefault();
+            return _webcontext.Clients.Where(m => m.ID == id && m.IsActive == true).FirstOrDefault();
         }
 
-        public void Save(Client data)
+        public void Save(Client data, string loggedInUserName)
         {
             using (TransactionScope transaction = new TransactionScope())
             {
                 Client client = new Client();
 
                 //Add Client
-                if (data.ID == 0)
+                if (data.ID == 0 && !IsNumberExists(data.Number))
                 {
                     client.Number = data.Number;
                     client.Name = data.Name;
@@ -40,7 +40,7 @@ namespace ClientRequest.Services.Services
                     client.Phone = data.Phone;
                     client.Email = data.Email;
                     client.IsActive = true;
-                    client.CreatedBy = data.CreatedBy;
+                    client.CreatedBy = loggedInUserName;
                     client.CreatedOn = DateTime.Now;
                     _webcontext.Clients.Add(client);
                 }
@@ -51,7 +51,7 @@ namespace ClientRequest.Services.Services
                     client.Address = data.Address;
                     client.Phone = data.Phone;
                     client.Email = data.Email;
-                    client.UpdatedBy = data.UpdatedBy;
+                    client.UpdatedBy = loggedInUserName;
                     client.UpdatedOn = DateTime.Now;
                 }
                 _webcontext.SaveChanges();
@@ -90,7 +90,7 @@ namespace ClientRequest.Services.Services
                 }
 
                 var client = _webcontext.Clients.Where(m => m.ID == id).FirstOrDefault();
-                _webcontext.Clients.Remove(client);
+                client.IsActive = false;
                 _webcontext.SaveChanges();
 
                 transaction.Complete();
@@ -99,7 +99,7 @@ namespace ClientRequest.Services.Services
 
         public bool IsNumberExists(string number)
         {
-            var client = _webcontext.Clients.Where(m => m.Number == number).FirstOrDefault();
+            var client = _webcontext.Clients.Where(m => m.Number == number && m.IsActive == true).FirstOrDefault();
             return client != null ? true : false;
         }
     }

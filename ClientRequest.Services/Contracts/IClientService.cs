@@ -11,7 +11,7 @@ namespace ClientRequest.Services.Contracts
     {
         List<Client> Get();
         Client GetById(int id);
-        void Save(Client data);
+        void Save(Client data, string loggedInUserName);
         void Delete(int id);
         bool IsNumberExists(string number);
     }

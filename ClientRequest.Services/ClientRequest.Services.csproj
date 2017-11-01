@@ -51,11 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IClientService.cs" />
+    <Compile Include="Contracts\IDataLookupService.cs" />
     <Compile Include="Contracts\IJobNatureService.cs" />
     <Compile Include="Contracts\IModuleService.cs" />
     <Compile Include="Contracts\IRequestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\DataLookupService.cs" />
     <Compile Include="Services\JobNatureService.cs" />
     <Compile Include="Services\ModuleService.cs" />
     <Compile Include="Services\RequestService.cs" />
