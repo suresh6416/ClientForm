@@ -54,7 +54,7 @@ namespace ClientRequest.Services.Services
 
         public bool IsNumberExists(string number)
         {
-            var module = _webcontext.Modules.Where(m => m.Number == number).FirstOrDefault();
+            var module = _webcontext.Modules.Where(m => m.Number == number && m.IsActive == true).FirstOrDefault();
             return module != null ? true : false;
         }
     }

@@ -15,20 +15,20 @@ namespace ClientRequest.Services.Services
 
         public List<JobNature> Get()
         {
-            return _webcontext.JobNatures.ToList();
+            return _webcontext.JobNatures.Where(m => m.IsActive == true).ToList();
         }
 
         public JobNature GetById(int id)
         {
-            return _webcontext.JobNatures.Where(m => m.ID == id).FirstOrDefault();
+            return _webcontext.JobNatures.Where(m => m.ID == id && m.IsActive == true).FirstOrDefault();
         }
 
-        public void Save(JobNature data)
+        public void Save(JobNature data, string loggedInUserName)
         {
-            if (data.ID == 0)
+            if (data.ID == 0 && !IsNumberExists(data.Number))
             {
                 data.IsActive = true;
-                data.CreatedBy = data.CreatedBy;
+                data.CreatedBy = loggedInUserName;
                 data.CreatedOn = DateTime.Now;
                 _webcontext.JobNatures.Add(data);
             }
@@ -37,7 +37,7 @@ namespace ClientRequest.Services.Services
                 var job = _webcontext.JobNatures.Where(m => m.ID == data.ID).FirstOrDefault();
                 job.Name = data.Name;
                 job.Description = data.Description;
-                job.UpdatedBy = data.UpdatedBy;
+                job.UpdatedBy = loggedInUserName;
                 job.UpdatedOn = DateTime.Now;
             }
 
@@ -47,13 +47,13 @@ namespace ClientRequest.Services.Services
         public void Delete(int id)
         {
             var job = _webcontext.JobNatures.Where(m => m.ID == id).FirstOrDefault();
-            _webcontext.JobNatures.Remove(job);
+            job.IsActive = false;
             _webcontext.SaveChanges();
         }
 
         public bool IsNumberExists(string number)
         {
-            var job = _webcontext.JobNatures.Where(m => m.Number == number).FirstOrDefault();
+            var job = _webcontext.JobNatures.Where(m => m.Number == number && m.IsActive== true).FirstOrDefault();
             return job != null ? true : false;
         }
     }

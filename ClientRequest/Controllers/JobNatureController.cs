@@ -72,9 +72,8 @@ namespace ClientRequest.Controllers
         {
             OperationResult result = new OperationResult();
             try
-            {
-                jobNature.CreatedBy = jobNature.UpdatedBy = LoggedInUserName;
-                lJobNature.Save(jobNature);
+            {                
+                lJobNature.Save(jobNature, LoggedInUserName);
                 result.Status = OperationStatus.SUCCESS;
             }
             catch (Exception ex)
@@ -111,7 +110,7 @@ namespace ClientRequest.Controllers
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public OperationResult IsNumberExists(string number)
         {
             OperationResult result = new OperationResult();

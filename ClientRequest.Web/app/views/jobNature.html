@@ -1,10 +1,10 @@
 ﻿<div class="col-lg-12">
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><h3>Modules</h3></div>
+        <div class="panel-heading"><h3>Job Natures</h3></div>
         <div class="panel-body">
             <div class="col-lg-12">
-                <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showAddModulePopup()">Add</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addJobNatureModel" ng-click="showAddJobNaturePopup()">Add</button>
             </div>
             <div class="col-lg-12 margin-top-10">
                 <table class="table table-hover table-bordered">
@@ -17,15 +17,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="mod in Modules">
+                        <tr ng-repeat="mod in JobNatures">
                             <td> {{mod.Number}} </td>
                             <td> {{mod.Name}} </td>
                             <td> {{mod.Description}} </td>
                             <td>
-                                <a class="btn btn-info" ng-click="getById(mod)" data-toggle="modal" data-target="#addModuleModel">
+                                <a class="btn btn-info" ng-click="getById(mod)" data-toggle="modal" data-target="#addJobNatureModel">
                                     <i class="fa fa-pencil fa-fw"></i>
                                 </a>
-                                <a class="btn btn-danger" ng-click="deleteModule(mod)">
+                                <a class="btn btn-danger" ng-click="deleteJobNature(mod)">
                                     <i class="fa fa-trash-o fa-fw"></i>
                                 </a>
                             </td>
@@ -37,34 +37,34 @@
     </div>
 </div>
 
-<div id="addModuleModel" class="modal fade" role="dialog">
+<div id="addJobNatureModel" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Module</h4>
+                <h4 class="modal-title">Job Nature</h4>
             </div>
             <div class="modal-body">
-                <form name="frmModule">
+                <form name="frmJobNature">
                     <div class="form-group">
                         <label for="number">Number</label>
-                        <input type="text" class="form-control" id="number" ng-model="Module.Number" ng-disabled="Module.ID > 0" ng-blur="isNumberExists(Module.Number)" required>                        
-                        <span class="help-block" ng-show="frmModule.number.$invalid && !frmModule.number.$pristine">Number is required.</span>
+                        <input type="text" class="form-control" id="number" ng-model="JobNature.Number" ng-disabled="JobNature.ID > 0" ng-blur="isNumberExists(JobNature.Number)" required>
+                        <span class="help-block" ng-show="frmJobNature.number.$invalid && !frmJobNature.number.$pristine">Number is required.</span>
                         <span class="has-error" ng-show="IsDuplicateNumber">Number already exist</span>
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" ng-model="Module.Name" required>
-                        <p ng-show="frmModule.name.$invalid && !frmModule.name.$pristine" class="help-block">Number is required.</p>
+                        <input type="text" class="form-control" id="name" ng-model="JobNature.Name" required>
+                        <p ng-show="frmJobNature.name.$invalid && !frmJobNature.name.$pristine" class="help-block">Number is required.</p>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" ng-model="Module.Description">
+                        <input type="text" class="form-control" id="description" ng-model="JobNature.Description">
                     </div>
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-success" ng-disabled="frmModule.$invalid" ng-click="save()">Submit</button>
+                        <button type="submit" class="btn btn-success" ng-disabled="frmJobNature.$invalid" ng-click="save()">Submit</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>

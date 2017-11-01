@@ -14,45 +14,14 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
     $stateProvider
         .state('welcome', {
             url: '/welcome',
+            abtract: true,
             templateUrl: 'app/views/layout/layout.html'
-        })
-        //.state('welcome.login', {
-        //    url: '/home',
-        //    templateUrl: 'app/views/login.html',
-        //    data: { pageTitle: 'Login' },
-        //    controller: "loginController",
-        //    resolve: {
-        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-        //            return $ocLazyLoad.load({
-        //                name: WEB_APP_NAME,
-        //                files: [
-        //                    'app/controller/loginController.js'
-        //                ]
-        //            });
-        //        }]
-        //    }
-        //})
+        })        
         .state('welcome.dashboard', {
             url: '/dashboard',
             templateUrl: 'app/views/dashboard.html',
             data: { pageTitle: 'Dashboard' }           
-        })
-        //.state('welcome.home', {
-        //    url: '/home',
-        //    templateUrl: 'app/views/home.html',
-        //    data: { pageTitle: 'Home' },
-        //    controller: "homeController",
-        //    resolve: {
-        //        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-        //            return $ocLazyLoad.load({
-        //                name: WEB_APP_NAME,
-        //                files: [
-        //                    'app/controller/homeController.js'
-        //                ]
-        //            });
-        //        }]
-        //    }
-        //})
+        })        
         .state('welcome.module', {
             url: '/module',
             templateUrl: 'app/views/module.html',
@@ -68,7 +37,39 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
                     });
                 }]
             }
-    });
+        })
+        .state('welcome.jobNature', {
+            url: '/jobNature',
+            templateUrl: 'app/views/jobNature.html',
+            data: { pageTitle: 'Job Nature' },
+            controller: "jobNatureController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/jobNatureController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+        .state('welcome.requests', {
+            url: '/requests',
+            templateUrl: 'app/views/requests.html',
+            data: { pageTitle: 'Requests' },
+            controller: "requestController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/requestController.js'
+                        ]
+                    });
+                }]
+            }
+        });
 }]);
 
 /*Setup Client Request Constants*/

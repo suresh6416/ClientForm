@@ -14,11 +14,11 @@
     };    
 
     $scope.save = function () {
-        debugger;
         if (!$scope.IsDuplicateNumber && $scope.frmModule.$valid) {
             moduleService.saveModules($scope.Module).then(function (response) {
                 $scope.Module = "";
                 $scope.getModules();
+                $('#addModuleModel').modal('hide')
             }, function (err) {
                 console.log(err);
             });

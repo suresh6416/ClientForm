@@ -11,7 +11,7 @@ namespace ClientRequest.Services.Contracts
     {
         List<JobNature> Get();
         JobNature GetById(int id);
-        void Save(JobNature job);
+        void Save(JobNature job, string loggedInUserName);
         void Delete(int id);
         bool IsNumberExists(string number);
     }
