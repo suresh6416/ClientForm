@@ -18,6 +18,7 @@ using ClientRequest.Providers;
 using ClientRequest.Results;
 using ClientRequest.SecurityModels;
 using System.Security.Principal;
+using ClientRequest.Models.Models;
 
 namespace ClientRequest.Controllers
 {
@@ -94,7 +95,7 @@ namespace ClientRequest.Controllers
         [Route("Login")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ClaimsIdentity> Login(LoginBindingModel model)
+        public async Task<ClaimsIdentity> LoginWithToken(LoginBindingModel model)
         {
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
             if (SignInStatus.Success.Equals(result))
@@ -107,6 +108,19 @@ namespace ClientRequest.Controllers
 
             // Credentials are invalid, or account doesn't exist
             return null;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<OperationResult> Login(LoginModel model)
+        {
+            OperationResult result = new OperationResult();
+            if (ModelState.IsValid)
+            {
+                result.Data = await SignInManager.PasswordSignInAsync(model.Email, model.Password, false, false);                
+            }
+
+            return result;
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
