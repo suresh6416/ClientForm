@@ -22,7 +22,16 @@ namespace ClientRequest.Services.Services
 
         public Client GetById(int id)
         {
-            return _webcontext.Clients.Where(m => m.ID == id && m.IsActive == true).FirstOrDefault();
+            var client = _webcontext.Clients.Where(m => m.ID == id && m.IsActive == true).FirstOrDefault();
+            if(client != null)
+            {
+                var clientModules = _webcontext.ClientModules.Where(m => m.ClientId == id).ToList();
+                if(clientModules.Count > 0)
+                {
+                   client.ClientModules = clientModules;
+                }
+            }
+            return client;
         }
 
         public void Save(Client data, string loggedInUserName)

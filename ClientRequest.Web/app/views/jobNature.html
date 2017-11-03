@@ -40,14 +40,13 @@
 <div id="addJobNatureModel" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Job Nature</h4>
-            </div>
-            <div class="modal-body">
-                <form name="frmJobNature">
+        <form name="frmJobNature">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Job Nature</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="number">Number</label>
                         <input type="text" class="form-control" id="number" ng-model="JobNature.Number" ng-disabled="JobNature.ID > 0" ng-blur="isNumberExists(JobNature.Number)" required>
@@ -57,18 +56,18 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" ng-model="JobNature.Name" required>
-                        <p ng-show="frmJobNature.name.$invalid && !frmJobNature.name.$pristine" class="help-block">Number is required.</p>
+                        <span ng-show="frmJobNature.name.$invalid && !frmJobNature.name.$pristine" class="help-block">Name is required.</span>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description" ng-model="JobNature.Description">
                     </div>
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-success" ng-disabled="frmJobNature.$invalid" ng-click="save()">Submit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-disabled="frmJobNature.$invalid" ng-click="save()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

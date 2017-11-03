@@ -4,7 +4,7 @@
         <div class="panel-heading"><h3>Modules</h3></div>
         <div class="panel-body">
             <div class="col-lg-12">
-                <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="showAddModulePopup()">Add</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModuleModel" ng-click="showAddModulePopup()">Add</button>
             </div>
             <div class="col-lg-12 margin-top-10">
                 <table class="table table-hover table-bordered">
@@ -40,35 +40,35 @@
 <div id="addModuleModel" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Module</h4>
-            </div>
-            <div class="modal-body">
-                <form name="frmModule">
+        <form name="frmModule">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Module</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="number">Number</label>
-                        <input type="text" class="form-control" id="number" ng-model="Module.Number" ng-disabled="Module.ID > 0" ng-blur="isNumberExists(Module.Number)" required>                        
+                        <input type="text" class="form-control" id="number" ng-model="Module.Number" ng-disabled="Module.ID > 0" ng-blur="isNumberExists(Module.Number)" required>
                         <span class="help-block" ng-show="frmModule.number.$invalid && !frmModule.number.$pristine">Number is required.</span>
                         <span class="has-error" ng-show="IsDuplicateNumber">Number already exist</span>
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" ng-model="Module.Name" required>
-                        <p ng-show="frmModule.name.$invalid && !frmModule.name.$pristine" class="help-block">Number is required.</p>
+                        <span ng-show="frmModule.name.$invalid && !frmModule.name.$pristine" class="help-block">Name is required.</span>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
                         <input type="text" class="form-control" id="description" ng-model="Module.Description">
                     </div>
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-success" ng-disabled="frmModule.$invalid" ng-click="save()">Submit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-disabled="frmModule.$invalid" ng-click="save()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

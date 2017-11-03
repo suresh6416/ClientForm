@@ -28,6 +28,12 @@ namespace ClientRequest
 
             //var container = UnityConfig.GetConfiguredContainer(); // Or any other way to fetch your container.
             //config.DependencyResolver = new UnityDependencyResolver(container);
+            
+            config.Formatters.JsonFormatter
+                        .SerializerSettings
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
         }
     }
 }
