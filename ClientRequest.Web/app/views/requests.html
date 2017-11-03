@@ -1,1 +1,137 @@
-﻿<h1>Requests</h1>
+﻿<div class="col-lg-12">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><h3>Requests</h3></div>
+        <div class="panel-body">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRequestModel" ng-click="showAddRequestPopup()">Add</button>
+            </div>
+            <div class="col-lg-12 margin-top-10">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th> Number </th>
+                            <th> Module </th>
+                            <th> Job Nature </th>
+                            <th> Client </th>
+                            <th> Requested By </th>
+                            <th> Request Request </th>
+                            <th> Job Status </th>
+                            <th> Assessment </th>
+                            <th> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="mod in Requests">
+                            <td> {{mod.Number}} </td>
+                            <td> {{mod.ModuleID}} </td>
+                            <td> {{mod.JobNatureID}} </td>
+                            <td> {{mod.ClientID}} </td>
+                            <td> {{mod.RequestedBy}} </td>
+                            <td> {{mod.Description}} </td>
+                            <td> Active </td>
+                            <td> {{mod.Assessment}} </td>
+                            <td>
+                                <a class="btn btn-info" ng-click="getById(mod)" data-toggle="modal" data-target="#addRequestModel">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                </a>
+                                <a class="btn btn-danger" ng-click="deleteRequest(mod)">
+                                    <i class="fa fa-trash-o fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addRequestModel" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width:70%">
+        <!-- Modal content-->
+        <form name="frmRequest">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Request</h4>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="number">Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="number" ng-model="Request.Number" ng-disabled="Request.ID > 0" ng-blur="isNumberExists(Request.Number)" required>
+                                <span class="help-block" ng-show="frmRequest.number.$invalid && !frmRequest.number.$pristine">Number is required.</span>
+                                <span class="has-error" ng-show="IsDuplicateNumber">Number already exist</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="text" class="form-control" id="date" ng-model="RequestDate" datetime="yyyy-MM-dd HH:mm:ss" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="requestedBy">Requested By</label>
+                                <input type="text" class="form-control" id="requestedBy" ng-model="RequestBy" disabled>                                
+                            </div>
+                            <div class="form-group">
+                                <label for="workAssignedTo">Work Assigned To <span class="text-danger">*</span></label>
+                                <select class="form-control" data-ng-model="SelectedWorkAssigned" id="workAssignedTo"
+                                        data-ng-options="m as m.Name for m in WorkAssignedToLookup | orderBy:'Number' track by m.ID">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="client">Client <span class="text-danger">*</span></label>
+                                <select class="form-control" data-ng-model="SelectedClient" id="client"
+                                        data-ng-options="m as m.Name for m in ClientLookup | orderBy:'Number' track by m.ID">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="module">Module <span class="text-danger">*</span></label>
+                                <select class="form-control" data-ng-model="SelectedModule" id="module"
+                                        data-ng-options="m as m.Name for m in ModuleLookup | orderBy:'Number' track by m.ID">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="jobNature">Job Nature <span class="text-danger">*</span></label>
+                                <select class="form-control" data-ng-model="SelectedJobNature" id="jobNature"
+                                        data-ng-options="m as m.Name for m in JobNatureLookup | orderBy:'Number' track by m.ID">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="crw">CRW <span class="text-danger">*</span></label>
+                                <select class="form-control" data-ng-model="SelectedCRW" id="crw"
+                                        data-ng-options="m as m.Name for m in CRWToLookup | orderBy:'Number' track by m.ID">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="clientRequest">Client Request <span class="text-danger">*</span></label>
+                                <textarea rows="4" cols="3" class="form-control" id="clientRequest" ng-model="Request.Description" required></textarea>
+                                <span ng-show="frmRequest.clientRequest.$invalid && !frmRequest.clientRequest.$pristine" class="help-block">Client request is required.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="assessment">Assessment</label>
+                                <textarea rows="4" cols="3" class="form-control" id="assessment" ng-model="Request.Assessment"></textarea>                                
+                            </div>
+                        </div>                        
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-disabled="frmRequest.$invalid" ng-click="save()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

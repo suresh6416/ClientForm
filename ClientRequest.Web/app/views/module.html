@@ -48,13 +48,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="number">Number</label>
+                        <label for="number">Number <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="number" ng-model="Module.Number" ng-disabled="Module.ID > 0" ng-blur="isNumberExists(Module.Number)" required>
                         <span class="help-block" ng-show="frmModule.number.$invalid && !frmModule.number.$pristine">Number is required.</span>
                         <span class="has-error" ng-show="IsDuplicateNumber">Number already exist</span>
                     </div>
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" ng-model="Module.Name" required>
                         <span ng-show="frmModule.name.$invalid && !frmModule.name.$pristine" class="help-block">Name is required.</span>
                     </div>

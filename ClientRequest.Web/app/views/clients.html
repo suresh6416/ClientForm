@@ -42,7 +42,7 @@
 </div>
 
 <div id="addClientModel" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog"  style="width:60%">
         <!-- Modal content-->
         <form name="frmClient">
             <div class="modal-content">
@@ -58,12 +58,12 @@
                         <span class="has-error" ng-show="IsDuplicateNumber">Number already exist</span>
                     </div>
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" ng-model="Client.Name" required>
                         <span ng-show="frmClient.name.$invalid && !frmClient.name.$pristine" class="help-block">Name is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="module">Module</label>
+                        <label for="module">Module <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <select class="form-control" data-ng-model="SelectedModule" id="module"
                                     data-ng-options="m as m.Name for m in ModuleLookup | orderBy:'Number' track by m.ID">
@@ -99,17 +99,17 @@
                         </table>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Address <span class="text-danger">*</span></label>
                         <textarea rows="4" cols="3" class="form-control" id="address" ng-model="Client.Address" required></textarea>
                         <span ng-show="frmClient.address.$invalid && !frmClient.address.$pristine" class="help-block">Name is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Phone <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="phone" ng-model="Client.Phone" maxlength="10" required>
                         <span ng-show="frmClient.phone.$invalid && !frmClient.phone.$pristine" class="help-block">Phone is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" id="email" ng-model="Client.Email" required>
                         <span ng-show="frmClient.email.$invalid && !frmClient.email.$pristine" class="help-block">Email is required.</span>
                         <span ng-show="frmClient.email.$error.email && !frmClient.email.$pristine" class="help-block">Not valid email.</span>
