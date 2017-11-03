@@ -76,10 +76,17 @@ namespace ClientRequest.Services.Services
                     foreach (var module in data.ClientModules)
                     {
                         module.ClientId = client.ID;
-                        module.ModuleID = module.ModuleID;                        
+                        //Need to update with module.ModuleID
+                        module.ModuleID = module.ID;                        
                         _webcontext.ClientModules.Add(module);
                         _webcontext.SaveChanges();
                     }
+                }
+                else
+                {
+                    var clients = _webcontext.ClientModules.Where(m => m.ClientId == client.ID).ToList();
+                    _webcontext.ClientModules.RemoveRange(clients);
+                    _webcontext.SaveChanges();
                 }
 
                 transaction.Complete();

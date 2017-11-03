@@ -32,9 +32,7 @@
 
     $scope.save = function () {       
         if (!$scope.IsDuplicateNumber && $scope.frmClient.$valid) {
-            if ($scope.SelectedModuleList.length > 0) {
-                $scope.Client.ClientModules = $scope.SelectedModuleList;                
-            }  
+            $scope.Client.ClientModules = $scope.SelectedModuleList;
             clientService.saveClients($scope.Client).then(function (response) {
                 $scope.Client = "";
                 $scope.SelectedModuleList = [];
