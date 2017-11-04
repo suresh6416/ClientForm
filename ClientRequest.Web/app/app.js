@@ -31,6 +31,22 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
                 }]
             }
         })
+        .state('register', {
+            url: '/register',
+            templateUrl: 'app/views/register.html',
+            data: { pageTitle: 'Registration' },
+            controller: "accountController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/accountController.js'
+                        ]
+                    });
+                }]
+            }
+        })
         .state('welcome', {
             url: '/welcome',
             abtract: true,

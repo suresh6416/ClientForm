@@ -18,9 +18,21 @@
             return deferred.promise;
         };
                
+        //Register
+        var _register = function (data) {
+            var deferred = $q.defer();
 
+            $http.post(serviceBase + 'api/Account/Register', data).success(function (response) {
+                deferred.resolve(response);
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
         return {
-            login: _login
+            login: _login,
+            register: _register
         };
 
     }]);

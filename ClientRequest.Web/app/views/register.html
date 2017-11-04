@@ -1,0 +1,34 @@
+﻿<div class="div-auth">
+    <div class="col-md-12 text-center">
+        <img src="../../images/logo/hom-logo2.png" style="width:60%;" />
+    </div>
+    <div class="col-md-12 margin-top-20">
+        <form name="frmRegistration">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center"><h3>Registration</h3></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="email">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email" ng-model="Register.Email" required>
+                        <span class="help-block" ng-show="frmRegistration.email.$invalid && !frmRegistration.email.$pristine">Email is required.</span>
+                        <span ng-show="frmRegistration.email.$error.email && !frmRegistration.email.$pristine" class="help-block">Not valid email.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="password" ng-model="Register.Password" required>
+                        <span ng-show="frmRegistration.password.$invalid && !frmRegistration.password.$pristine" class="help-block">Password is required.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="confirmPassword" ng-model="Register.ConfirmPassword" required>
+                        <span ng-show="frmRegistration.confirmPassword.$invalid && !frmRegistration.confirmPassword.$pristine" class="help-block">Confirm Password is required.</span>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="submit" class="btn btn-success" ng-disabled="frmRegistration.$invalid" ng-click="register()">Submit</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelRegister()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

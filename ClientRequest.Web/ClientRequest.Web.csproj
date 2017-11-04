@@ -111,6 +111,7 @@
     <Content Include="app\controller\moduleController.js" />
     <Content Include="app\services\moduleService.js" />
     <Content Include="app\views\module.html" />
+    <Content Include="app\views\register.html" />
     <Content Include="app\views\requests.html" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\font-awesome.min.css" />
