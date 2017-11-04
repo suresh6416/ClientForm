@@ -92,7 +92,7 @@ namespace ClientRequest.Controllers
         }
 
         // POST api/Account/Login
-        [Route("Login")]
+        [Route("LoginWithToken")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<ClaimsIdentity> LoginWithToken(LoginBindingModel model)

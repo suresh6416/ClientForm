@@ -1,17 +1,36 @@
-﻿var ClientRequestApp = angular.module('ClientRequestApp', ['ui.router', 'oc.lazyLoad', 'ui.bootstrap']);
+﻿var ClientRequestApp = angular.module('ClientRequestApp', ['ui.router', 'oc.lazyLoad', 'ui.bootstrap', 'ngStorage']);
 
-ClientRequestApp.controller('appController', ['$rootScope', '$scope', function ($rootScope, $scope) {
-    $scope.$on('$viewContentLoaded', function () {
+ClientRequestApp.controller('appController', ['$rootScope', '$scope', '$state', '$localStorage', '$sessionStorage', function ($rootScope, $scope, $state, $localStorage, $sessionStorage) {
+    $rootScope.loggedInUser = $localStorage.loggedInUser;
 
-    });
+    $scope.logout = function () {
+        $localStorage.loggedInUser = "";
+        $state.go('login');
+    }
 }]);
 
 ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
-    $urlRouterProvider.otherwise("/welcome/dashboard");
+    $urlRouterProvider.otherwise("/login");
     var WEB_APP_NAME = "ClientRequestApp";
 
     $stateProvider
+        .state('login', {
+            url: '/login',
+            templateUrl: 'app/views/login.html',
+            data: { pageTitle: 'Login' },
+            controller: "accountController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/accountController.js'
+                        ]
+                    });
+                }]
+            }
+        })
         .state('welcome', {
             url: '/welcome',
             abtract: true,
@@ -20,7 +39,21 @@ ClientRequestApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
         .state('welcome.dashboard', {
             url: '/dashboard',
             templateUrl: 'app/views/dashboard.html',
-            data: { pageTitle: 'Dashboard' }           
+            data: { pageTitle: 'Dashboard' },
+            params: {
+                'email': ''                
+            },
+            controller: "dashboardController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: WEB_APP_NAME,
+                        files: [
+                            'app/controller/dashboardController.js'
+                        ]
+                    });
+                }]
+            }
         })
         .state('welcome.requests', {
             url: '/requests',
