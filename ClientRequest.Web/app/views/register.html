@@ -22,6 +22,7 @@
                         <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="confirmPassword" ng-model="Register.ConfirmPassword" required>
                         <span ng-show="frmRegistration.confirmPassword.$invalid && !frmRegistration.confirmPassword.$pristine" class="help-block">Confirm Password is required.</span>
+                        <span class="has-error" ng-show="Register.ConfirmPassword !== Register.Password">Your passwords must match.</span> 
                     </div>
                 </div>
                 <div class="panel-footer text-right">
